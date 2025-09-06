@@ -43,6 +43,7 @@ public class TasksView extends JFrame implements Observer{
 
         addBtn.addActionListener(e -> new TaskForm(this, viewModel).setVisible(true));
 
+        // Need to be modified - didn't finished the function.
         editBtn.addActionListener(e -> {
             int row = taskTable.getSelectedRow();
             if (row >= 0) {
@@ -51,8 +52,6 @@ public class TasksView extends JFrame implements Observer{
                 String currentState = (String) tableModel.getValueAt(row, 2);
 
                 TaskForm form = new TaskForm(this, viewModel);
-                // נוכל לשפר את TaskForm כך שיקבל גם "task לעריכה"
-                // ואז בלחיצה Save נקרא ל-updateTask ולא ל-addTask
                 form.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Please select a task to edit.");
@@ -78,6 +77,7 @@ public class TasksView extends JFrame implements Observer{
             if (keyword != null && !keyword.isBlank()) {
                 try {
                     ITask[] filtered = viewModel.getFilteredTasks(
+                            // Need to be changed, I add this only for testing the system
                             com.application.viewmodel.filters.TaskFilters.byTitleContains(keyword)
                     );
                     tableModel.setRowCount(0);
@@ -103,11 +103,6 @@ public class TasksView extends JFrame implements Observer{
                 JOptionPane.showMessageDialog(this, "Error generating report: " + ex.getMessage());
             }
         });
-    }
-
-    private void showTaskForm() {
-        TaskForm form = new TaskForm(this, viewModel);
-        form.setVisible(true);
     }
 
     @Override
