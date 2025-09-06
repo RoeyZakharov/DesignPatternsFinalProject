@@ -82,6 +82,7 @@ public class DerbyTasksDAO implements ITasksDAO {
             stmt.setString(5, String.valueOf(Timestamp.valueOf(LocalDateTime.now())));
             stmt.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new TasksDAOException("Error adding task " + task.getId(), e);
         }
     }
